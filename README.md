@@ -33,6 +33,20 @@ grpcurl -plaintext -d '{"video": "http://s1.origin-cluster/video/123/xcg2djHckad
 
 ### Нагрузочное тестирование
 
+1. Простая отправка 100к запросов
+
 ```
-ghz --insecure --call lb_v1.LB_v1.GetVideoURL -d '{"video": "http://s{{randomInt 1 6}}.origin-cluster/video/{{randomInt 1 11}}/pl{{randomInt 0 1000}}.m3u8"}' -n 10000 :9000
+ghz --insecure --call lb_v1.LB_v1.GetVideoURL -d  '{"video": "http://s{{randomInt 1 10}}.origin-cluster/video/{{randomInt 1 300}}/{{randomString 10}}{{randomInt 0 50}}.m3u8"}' -n 100000 :9000
+```
+
+2. Отправка 100к запросов с rps 15000
+
+```
+ghz --insecure --call lb_v1.LB_v1.GetVideoURL -d  '{"video": "http://s{{randomInt 1 10}}.origin-cluster/video/{{randomInt 1 300}}/{{randomString 10}}{{randomInt 0 50}}.m3u8"}' -n 100000 --rps 15000 :9000
+```
+
+3. Работа в течение 30 секунд под максимальной нагрузкой
+
+```
+ghz --insecure --call lb_v1.LB_v1.GetVideoURL -d  '{"video": "http://s{{randomInt 1 10}}.origin-cluster/video/{{randomInt 1 300}}/{{randomString 10}}{{randomInt 0 50}}.m3u8"}' -n 10000000 --duration=30s :9000
 ```
