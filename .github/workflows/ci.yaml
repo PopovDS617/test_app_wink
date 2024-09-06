@@ -34,7 +34,7 @@ jobs:
           cache-dependency-path: go.sum
 
       - name: testappwink_build
-        run: go build -o ./bin/ ./cmd/main.go
+        run: go build -o ./bin/ ./cmd/grpc_server/main.go
 
       - name: testappwink_test
         run: go test -v ./...

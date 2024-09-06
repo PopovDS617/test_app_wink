@@ -24,7 +24,7 @@
 3. Make dd
 ```
 
-### Отправка запросов на GRP сервер
+### Отправка запросов на GRPC сервер
 
 ```
 grpcurl -plaintext -d '{"video": "http://s1.origin-cluster/video/123/xcg2djHckad.m3u8"}' \
