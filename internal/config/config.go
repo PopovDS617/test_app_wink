@@ -7,3 +7,7 @@ type GRPCConfig interface {
 type LoadBalancerConfig interface {
 	CDNHost() string
 }
+
+type LoggerConfig interface {
+	Stage() string
+}

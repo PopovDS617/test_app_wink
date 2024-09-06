@@ -10,10 +10,11 @@ import (
 )
 
 type serviceProvider struct {
-	grpcConfig config.GRPCConfig
-	lbConfig   config.LoadBalancerConfig
-	lbService  service.LBService
-	lbImpl     *lb.Implementation
+	grpcConfig   config.GRPCConfig
+	lbConfig     config.LoadBalancerConfig
+	loggerConfig config.LoggerConfig
+	lbService    service.LBService
+	lbImpl       *lb.Implementation
 }
 
 func newServiceProvider() *serviceProvider {
@@ -22,6 +23,7 @@ func newServiceProvider() *serviceProvider {
 
 	srvProvider.initGRPCConfig()
 	srvProvider.initLBConfig()
+	srvProvider.initLoggerConfig()
 
 	return &srvProvider
 }
@@ -41,6 +43,15 @@ func (s *serviceProvider) initGRPCConfig() {
 
 		s.grpcConfig = cfg
 	}
+}
+
+func (s *serviceProvider) initLoggerConfig() {
+	if s.loggerConfig == nil {
+		cfg := utils.Must(config.NewLoggerConfig())
+
+		s.loggerConfig = cfg
+	}
+
 }
 
 func (s *serviceProvider) initLBService(_ context.Context) service.LBService {

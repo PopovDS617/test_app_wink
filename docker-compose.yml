@@ -10,4 +10,5 @@ services:
     environment:
       - GRPC_PORT=9000
       - CDN_HOST=cdn
+      - STAGE=prod
 # volumes:

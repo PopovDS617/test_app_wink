@@ -3,9 +3,13 @@ package app
 import (
 	"context"
 	"log"
+	"log/slog"
 	"net"
+	"testappwink/internal/interceptor"
+	"testappwink/internal/logger"
 	gen "testappwink/pkg/lb_v1"
 
+	"github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/logging"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/reflection"
@@ -14,6 +18,7 @@ import (
 type App struct {
 	serviceProvider *serviceProvider
 	grpcServer      *grpc.Server
+	logger          *slog.Logger
 }
 
 func NewApp(ctx context.Context) (*App, error) {
@@ -34,6 +39,7 @@ func (a *App) Run() error {
 func (a *App) initDeps(ctx context.Context) error {
 	inits := []func(context.Context) error{
 		a.initServiceProvider,
+		a.initLogger,
 		a.initGRPCServer,
 	}
 
@@ -47,13 +53,22 @@ func (a *App) initDeps(ctx context.Context) error {
 	return nil
 }
 
+func (a *App) initLogger(_ context.Context) error {
+	a.logger = logger.NewLogger(a.serviceProvider.loggerConfig.Stage())
+	return nil
+}
+
 func (a *App) initServiceProvider(_ context.Context) error {
 	a.serviceProvider = newServiceProvider()
 	return nil
 }
 
 func (a *App) initGRPCServer(ctx context.Context) error {
-	a.grpcServer = grpc.NewServer(grpc.Creds(insecure.NewCredentials()))
+
+	loggingInterceptor := interceptor.InterceptorLogger(a.logger)
+	logginOptions := interceptor.LoggingOptions()
+
+	a.grpcServer = grpc.NewServer(grpc.Creds(insecure.NewCredentials()), grpc.ChainUnaryInterceptor(logging.UnaryServerInterceptor(loggingInterceptor, logginOptions...)))
 
 	reflection.Register(a.grpcServer)
 

@@ -22,7 +22,7 @@ build:
 ## run: builds and runs the application
 run: build
 	@echo "Starting..."
-	@env GRPC_HOST=${GRPC_HOST} GRPC_PORT=${GRPC_PORT} ORIGINAL_HOST=${ORIGINAL_HOST} CDN_HOST=${CDN_HOST} ./bin/${BINARY_NAME} &
+	@env GRPC_HOST=${GRPC_HOST} GRPC_PORT=${GRPC_PORT} ORIGINAL_HOST=${ORIGINAL_HOST} CDN_HOST=${CDN_HOST} STAGE=${STAGE} ./bin/${BINARY_NAME} &
 	@echo "Started!"
 
 ## clean: runs go clean and deletes binaries
