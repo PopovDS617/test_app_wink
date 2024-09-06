@@ -45,7 +45,7 @@ func (s *serviceProvider) initGRPCConfig() {
 
 func (s *serviceProvider) initLBService(_ context.Context) service.LBService {
 	if s.lbService == nil {
-		s.lbService = lbService.NewService(s.lbConfig.OriginalHost(), s.lbConfig.CDNHost())
+		s.lbService = lbService.NewService(s.lbConfig.CDNHost())
 	}
 	return s.lbService
 }

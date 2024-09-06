@@ -5,6 +5,5 @@ type GRPCConfig interface {
 }
 
 type LoadBalancerConfig interface {
-	OriginalHost() string
 	CDNHost() string
 }

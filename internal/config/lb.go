@@ -7,21 +7,14 @@ import (
 )
 
 const (
-	originalHostEnvName = "ORIGINAL_HOST"
-	cdnHostEnvName      = "CDN_HOST"
+	cdnHostEnvName = "CDN_HOST"
 )
 
 type lbConfig struct {
-	originalHost string
-	cdnHost      string
+	cdnHost string
 }
 
 func NewLBConfig() (LoadBalancerConfig, error) {
-
-	originalHost := os.Getenv(originalHostEnvName)
-	if len(originalHost) == 0 {
-		return nil, errors.New("original host not found")
-	}
 
 	cdnHost := os.Getenv(cdnHostEnvName)
 	if len(cdnHost) == 0 {
@@ -29,12 +22,8 @@ func NewLBConfig() (LoadBalancerConfig, error) {
 	}
 
 	return &lbConfig{
-		originalHost, cdnHost,
+		cdnHost,
 	}, nil
-}
-
-func (cfg *lbConfig) OriginalHost() string {
-	return cfg.originalHost
 }
 
 func (cfg *lbConfig) CDNHost() string {

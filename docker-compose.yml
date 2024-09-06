@@ -9,6 +9,5 @@ services:
       - "9000:9000"
     environment:
       - GRPC_PORT=9000
-      - ORIGINAL_HOST="origin-cluster"
-      - CDN_HOST="cdn"
+      - CDN_HOST=cdn
 # volumes:

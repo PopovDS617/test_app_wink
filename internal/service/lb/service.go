@@ -11,10 +11,9 @@ import (
 )
 
 type srvc struct {
-	counter      uint64
-	mu           sync.Mutex
-	originalHost string
-	cdnHost      string
+	counter uint64
+	mu      sync.Mutex
+	cdnHost string
 }
 
 type parsedURL struct {
@@ -23,11 +22,10 @@ type parsedURL struct {
 	location        string
 }
 
-func NewService(originalHost string, cdnHost string) service.LBService {
+func NewService(cdnHost string) service.LBService {
 	return &srvc{
-		counter:      0,
-		originalHost: originalHost,
-		cdnHost:      cdnHost,
+		counter: 0,
+		cdnHost: cdnHost,
 	}
 }
 
