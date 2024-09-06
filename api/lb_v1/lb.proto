@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package lb_v1;
+
+option go_package = "pkg/lb_v1;lb_v1";
+
+service LB_v1{
+    rpc GetVideoURL(GetVideoURLRequest) returns (GetVideoURLResponse);
+};
+
+
+message GetVideoURLRequest {
+    string video = 1;
+};
+
+message GetVideoURLResponse {
+    string video = 1;
+}

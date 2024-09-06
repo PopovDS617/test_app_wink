@@ -1,0 +1,14 @@
+version: "3.6"
+
+services:
+  testappwink:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "9000:9000"
+    environment:
+      - GRPC_PORT=9000
+      - ORIGINAL_HOST="origin-cluster"
+      - CDN_HOST="cdn"
+# volumes:
