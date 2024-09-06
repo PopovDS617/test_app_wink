@@ -1,0 +1,14 @@
+version: "3.6"
+
+services:
+  testappwink:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "9000:9000"
+    environment:
+      - GRPC_PORT=9000
+      - CDN_HOST=cdn
+      - STAGE=prod
+# volumes:
