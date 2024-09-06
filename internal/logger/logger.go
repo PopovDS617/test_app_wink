@@ -6,9 +6,9 @@ import (
 )
 
 const (
-	stageLocalEnvName = "local"
-	stageDevEnvName   = "dev"
-	stageProdEnvName  = "prod"
+	stageLocal = "local"
+	stageDev   = "dev"
+	stageProd  = "prod"
 )
 
 var logger *slog.Logger
@@ -17,15 +17,15 @@ func setupLogger(stage string) *slog.Logger {
 	var log *slog.Logger
 
 	switch stage {
-	case stageLocalEnvName:
+	case stageLocal:
 		log = slog.New(
 			slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelDebug}),
 		)
-	case stageDevEnvName:
+	case stageDev:
 		log = slog.New(
 			slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelDebug}),
 		)
-	case stageProdEnvName:
+	case stageProd:
 		log = slog.New(
 			slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelInfo}),
 		)
