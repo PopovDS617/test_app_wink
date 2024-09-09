@@ -15,6 +15,7 @@ func InterceptorLogger(l *slog.Logger) logging.Logger {
 
 func LoggingOptions() []logging.Option {
 	return []logging.Option{
-		logging.WithLogOnEvents(logging.StartCall, logging.FinishCall),
+		logging.WithDisableLoggingFields(logging.SystemTag[0], logging.SystemTag[1], logging.ComponentFieldKey, logging.ServiceFieldKey, logging.MethodFieldKey, logging.MethodTypeFieldKey, logging.KindClientFieldValue, logging.KindServerFieldValue),
+		logging.WithLogOnEvents(logging.FinishCall),
 	}
 }
