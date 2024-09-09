@@ -3,7 +3,6 @@ package lb
 import (
 	"context"
 	"errors"
-	"log"
 	"testappwink/pkg/customerr"
 	gen "testappwink/pkg/lb_v1"
 
@@ -23,8 +22,6 @@ func (i *Implementation) GetVideoURL(ctx context.Context, req *gen.GetVideoURLRe
 		return nil, status.Error(codes.InvalidArgument, "invalid input")
 
 	}
-
-	log.Print(videoURL)
 
 	return &gen.GetVideoURLResponse{
 		Video: videoURL,
